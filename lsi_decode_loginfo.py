@@ -1,5 +1,14 @@
 #!/usr/bin/env python
 
+"""
+Author: Eric Deng (xin.deng@wdc.com)
+
+v0.1 updates:
+- Added recursive parsing function `_decode_lsi_loginfo` to support automatic traversal of multi-level LogInfo structures.
+- Improved error code dictionary definitions for IOP, PL, IR, and FC.
+- Added fuzzy matching logic to fallback to matching the main code when a specific sub-code is undefined.
+"""
+
 from __future__ import print_function
 import sys
 
