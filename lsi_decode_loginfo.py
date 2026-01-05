@@ -10,6 +10,7 @@ v0.1 updates:
 """
 
 from __future__ import print_function
+import argparse
 import sys
 
 def decode_lsi_loginfo_numbers(val):
@@ -347,6 +348,9 @@ def _decode_lsi_loginfo(d, val, unparsed):
         submask = mask >> 8
         while submask > 0:
             highmask = mask & ~submask
+            if highmask == mask:
+                submask >>= 8
+                continue
             lowmask = submask
             lowval = lowmask & val
             highval = highmask & val
@@ -368,16 +372,14 @@ def decode_lsi_loginfo(val):
         print('%-10s\t%08Xh' % ('Unparsed', unparsed))
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print('Must provide a loginfo number to decode, as in:')
-        print('%s 0x31120000' % sys.argv[0])
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description="Decode LSI LogInfo codes.")
+    parser.add_argument("loginfo", help="The LogInfo value to decode (e.g., 0x31120000)")
+    args = parser.parse_args()
 
     try:
-        val = int(sys.argv[1], 0)
+        val = int(args.loginfo, 0)
     except ValueError:
-        print('Failure to parse the value "%s", it must be a number'
-              % sys.argv[1])
+        print('Failure to parse the value "%s", it must be a number' % args.loginfo)
         sys.exit(1)
 
     decode_lsi_loginfo(val)
