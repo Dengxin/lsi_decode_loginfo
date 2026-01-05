@@ -37,4 +37,4 @@ Relevant Documents
 Author
 ------
 
-Baruch Even <baruch@ev-en.org>
+Eric Deng <dengxin@gmail.com>
